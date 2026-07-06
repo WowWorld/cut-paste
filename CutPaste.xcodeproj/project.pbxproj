@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A00100000000000000000001 /* CutPasteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000001 /* CutPasteApp.swift */; };
+		A00100000000000000000002 /* ClipboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000002 /* ClipboardItem.swift */; };
+		A00100000000000000000003 /* ClipboardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000003 /* ClipboardStore.swift */; };
+		A00100000000000000000004 /* ClipboardPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000004 /* ClipboardPanelController.swift */; };
+		A00100000000000000000005 /* GlobalHotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000005 /* GlobalHotKey.swift */; };
+		A00100000000000000000006 /* ClipboardUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000006 /* ClipboardUIExtensions.swift */; };
+		A00100000000000000000007 /* Date+Relative.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000007 /* Date+Relative.swift */; };
+		A00100000000000000000008 /* NSImage+PNG.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000008 /* NSImage+PNG.swift */; };
+		A00100000000000000000009 /* String+CutPaste.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000009 /* String+CutPaste.swift */; };
+		A00100000000000000000011 /* ClipboardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000011 /* ClipboardCardView.swift */; };
+		A00100000000000000000012 /* ClipboardPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000012 /* ClipboardPreviewView.swift */; };
+		A00100000000000000000013 /* ClipboardShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000013 /* ClipboardShelfView.swift */; };
+		A00100000000000000000014 /* CommandNumberShortcutReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000014 /* CommandNumberShortcutReader.swift */; };
+		A00100000000000000000015 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000015 /* ContentView.swift */; };
+		A00100000000000000000016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000016 /* SettingsView.swift */; };
+		A00100000000000000000018 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00200000000000000000018 /* AppKit.framework */; };
+		A00100000000000000000019 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00200000000000000000019 /* SwiftUI.framework */; };
+		A00100000000000000000020 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00200000000000000000020 /* Carbon.framework */; };
+		A00100000000000000000021 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00200000000000000000021 /* ApplicationServices.framework */; };
+		A00100000000000000000022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000025 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A00200000000000000000001 /* CutPasteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/App/CutPasteApp.swift; sourceTree = "<group>"; };
+		A00200000000000000000002 /* ClipboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Models/ClipboardItem.swift; sourceTree = "<group>"; };
+		A00200000000000000000003 /* ClipboardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Stores/ClipboardStore.swift; sourceTree = "<group>"; };
+		A00200000000000000000004 /* ClipboardPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Services/ClipboardPanelController.swift; sourceTree = "<group>"; };
+		A00200000000000000000005 /* GlobalHotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Services/GlobalHotKey.swift; sourceTree = "<group>"; };
+		A00200000000000000000006 /* ClipboardUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Support/ClipboardUIExtensions.swift; sourceTree = "<group>"; };
+		A00200000000000000000007 /* Date+Relative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CutPaste/Support/Date+Relative.swift"; sourceTree = "<group>"; };
+		A00200000000000000000008 /* NSImage+PNG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CutPaste/Support/NSImage+PNG.swift"; sourceTree = "<group>"; };
+		A00200000000000000000009 /* String+CutPaste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CutPaste/Support/String+CutPaste.swift"; sourceTree = "<group>"; };
+		A00200000000000000000011 /* ClipboardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/ClipboardCardView.swift; sourceTree = "<group>"; };
+		A00200000000000000000012 /* ClipboardPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/ClipboardPreviewView.swift; sourceTree = "<group>"; };
+		A00200000000000000000013 /* ClipboardShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/ClipboardShelfView.swift; sourceTree = "<group>"; };
+		A00200000000000000000014 /* CommandNumberShortcutReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/CommandNumberShortcutReader.swift; sourceTree = "<group>"; };
+		A00200000000000000000015 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/ContentView.swift; sourceTree = "<group>"; };
+		A00200000000000000000016 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CutPaste/Views/SettingsView.swift; sourceTree = "<group>"; };
+		A00200000000000000000018 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		A00200000000000000000019 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A00200000000000000000020 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		A00200000000000000000021 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		A00200000000000000000022 /* CutPaste-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config/CutPaste-Info.plist; sourceTree = "<group>"; };
+		A00200000000000000000024 /* Cut Paste.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cut Paste.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00200000000000000000025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A00300000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00100000000000000000018 /* AppKit.framework in Frameworks */,
+				A00100000000000000000019 /* SwiftUI.framework in Frameworks */,
+				A00100000000000000000020 /* Carbon.framework in Frameworks */,
+				A00100000000000000000021 /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A00400000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A00400000000000000000002 /* Sources */,
+				A00400000000000000000003 /* Config */,
+				A00400000000000000000004 /* Resources */,
+				A00400000000000000000005 /* Frameworks */,
+				A00400000000000000000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A00400000000000000000002 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000001 /* CutPasteApp.swift */,
+				A00200000000000000000002 /* ClipboardItem.swift */,
+				A00200000000000000000003 /* ClipboardStore.swift */,
+				A00200000000000000000004 /* ClipboardPanelController.swift */,
+				A00200000000000000000005 /* GlobalHotKey.swift */,
+				A00200000000000000000006 /* ClipboardUIExtensions.swift */,
+				A00200000000000000000007 /* Date+Relative.swift */,
+				A00200000000000000000008 /* NSImage+PNG.swift */,
+				A00200000000000000000009 /* String+CutPaste.swift */,
+				A00200000000000000000011 /* ClipboardCardView.swift */,
+				A00200000000000000000012 /* ClipboardPreviewView.swift */,
+				A00200000000000000000013 /* ClipboardShelfView.swift */,
+				A00200000000000000000014 /* CommandNumberShortcutReader.swift */,
+				A00200000000000000000015 /* ContentView.swift */,
+				A00200000000000000000016 /* SettingsView.swift */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		A00400000000000000000003 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000022 /* CutPaste-Info.plist */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		A00400000000000000000004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000025 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A00400000000000000000005 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000018 /* AppKit.framework */,
+				A00200000000000000000019 /* SwiftUI.framework */,
+				A00200000000000000000020 /* Carbon.framework */,
+				A00200000000000000000021 /* ApplicationServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A00400000000000000000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000024 /* Cut Paste.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A00500000000000000000001 /* Cut Paste */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A00800000000000000000002 /* Build configuration list for PBXNativeTarget "Cut Paste" */;
+			buildPhases = (
+				A00600000000000000000001 /* Sources */,
+				A00300000000000000000001 /* Frameworks */,
+				A00700000000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cut Paste";
+			productName = "Cut Paste";
+			productReference = A00200000000000000000024 /* Cut Paste.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00900000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A00500000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A00800000000000000000001 /* Build configuration list for PBXProject "CutPaste" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A00400000000000000000001;
+			productRefGroup = A00400000000000000000006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A00500000000000000000001 /* Cut Paste */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A00700000000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00100000000000000000022 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A00600000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00100000000000000000001 /* CutPasteApp.swift in Sources */,
+				A00100000000000000000002 /* ClipboardItem.swift in Sources */,
+				A00100000000000000000003 /* ClipboardStore.swift in Sources */,
+				A00100000000000000000004 /* ClipboardPanelController.swift in Sources */,
+				A00100000000000000000005 /* GlobalHotKey.swift in Sources */,
+				A00100000000000000000006 /* ClipboardUIExtensions.swift in Sources */,
+				A00100000000000000000007 /* Date+Relative.swift in Sources */,
+				A00100000000000000000008 /* NSImage+PNG.swift in Sources */,
+				A00100000000000000000009 /* String+CutPaste.swift in Sources */,
+				A00100000000000000000011 /* ClipboardCardView.swift in Sources */,
+				A00100000000000000000012 /* ClipboardPreviewView.swift in Sources */,
+				A00100000000000000000013 /* ClipboardShelfView.swift in Sources */,
+				A00100000000000000000014 /* CommandNumberShortcutReader.swift in Sources */,
+				A00100000000000000000015 /* ContentView.swift in Sources */,
+				A00100000000000000000016 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A01000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A01000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		A01000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/CutPaste-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangliang.CutPaste;
+				PRODUCT_NAME = "Cut Paste";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A01000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/CutPaste-Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangliang.CutPaste;
+				PRODUCT_NAME = "Cut Paste";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A00800000000000000000001 /* Build configuration list for PBXProject "CutPaste" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A01000000000000000000001 /* Debug */,
+				A01000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A00800000000000000000002 /* Build configuration list for PBXNativeTarget "Cut Paste" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A01000000000000000000003 /* Debug */,
+				A01000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00900000000000000000001 /* Project object */;
+}
