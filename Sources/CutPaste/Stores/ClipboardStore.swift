@@ -20,7 +20,7 @@ final class ClipboardStore: ObservableObject {
     private var lastPasteboardChangeCount: Int
     private var timer: Timer?
     private let maxHistoryItems = 100
-    private let saveQueue = DispatchQueue(label: "com.wangliang.CutPaste.persistence", qos: .utility)
+    private let saveQueue = DispatchQueue(label: "io.github.wowworld.cutpaste.persistence", qos: .utility)
     private var pendingSaveWorkItem: DispatchWorkItem?
 
     init(pasteboard: NSPasteboard = .general) {

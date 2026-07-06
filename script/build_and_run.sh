@@ -4,7 +4,7 @@ set -euo pipefail
 MODE="${1:-run}"
 APP_NAME="Cut Paste"
 SWIFT_PRODUCT_NAME="CutPaste"
-BUNDLE_ID="com.wangliang.CutPaste"
+BUNDLE_ID="io.github.wowworld.cutpaste"
 MIN_SYSTEM_VERSION="14.0"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
