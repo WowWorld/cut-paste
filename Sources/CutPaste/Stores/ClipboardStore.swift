@@ -82,43 +82,26 @@ final class ClipboardStore: ObservableObject {
         guard !needle.isEmpty else {
             switch filter {
             case .all:
-                return items
+                return items.filter { !$0.isManual }
             case .links:
-                return items.filter { $0.kind == .link }
+                return items.filter { $0.kind == .link && !$0.isManual }
             case .images:
-                return items.filter { $0.kind == .image }
+                return items.filter { $0.kind == .image && !$0.isManual }
             case .files:
-                return items.filter { $0.kind == .file }
+                return items.filter { $0.kind == .file && !$0.isManual }
             case .colors:
-                return items.filter { $0.kind == .color }
+                return items.filter { $0.kind == .color && !$0.isManual }
             case .pinned:
                 return items.filter(\.isPinned)
             }
         }
 
+        // 有搜索词时，忽略当前筛选标签，汇总所有标签页的内容一起搜索
+        // 仅匹配内容本身（标题、副标题、正文），不匹配数据来源 sourceApp
         return items.filter { item in
-            let matchesFilter: Bool
-            switch filter {
-            case .all:
-                matchesFilter = true
-            case .links:
-                matchesFilter = item.kind == .link
-            case .images:
-                matchesFilter = item.kind == .image
-            case .files:
-                matchesFilter = item.kind == .file
-            case .colors:
-                matchesFilter = item.kind == .color
-            case .pinned:
-                matchesFilter = item.isPinned
-            }
-
-            guard matchesFilter else { return false }
-
             return item.title.lowercased().contains(needle)
                 || item.subtitle.lowercased().contains(needle)
                 || item.content.lowercased().contains(needle)
-                || item.sourceApp.lowercased().contains(needle)
         }
     }
 
@@ -176,6 +159,35 @@ final class ClipboardStore: ObservableObject {
     func togglePinned(_ item: ClipboardItem) {
         guard let index = items.firstIndex(where: { $0.id == item.id }) else { return }
         items[index].isPinned.toggle()
+        // 固定时同步标记 isManual，使其只在 Pinned 标签展示，不霸占 All 首位；
+        // 取消固定时清除标记，使其重新作为普通历史项在 All 中可见。
+        items[index].isManual = items[index].isPinned
+        sortPinnedItems()
+        save()
+    }
+
+    /// 手动添加固定内容：将其标记为 isPinned + isManual，永久保留，除非主动删除。
+    /// isManual 项只在 Pinned 筛选中展示，不会出现在 All 等其他分类里。
+    /// 复用 readStringItem 的类型识别逻辑（自动识别纯文本、链接、颜色值）。
+    func addManualItem(content: String) {
+        let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+
+        var newItem = readStringItem(content, sourceApp: "手动添加")
+        newItem.isPinned = true
+        newItem.isManual = true
+
+        // 若已存在相同内容，则直接固定已有项并刷新元数据，避免重复
+        if let existingIndex = items.firstIndex(where: { $0.fingerprint == newItem.fingerprint }) {
+            items[existingIndex].isPinned = true
+            items[existingIndex].isManual = true
+            items[existingIndex].title = newItem.title
+            items[existingIndex].subtitle = newItem.subtitle
+            items[existingIndex].content = newItem.content
+        } else {
+            items.insert(newItem, at: 0)
+        }
+
         sortPinnedItems()
         save()
     }

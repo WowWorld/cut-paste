@@ -19,6 +19,7 @@ struct ClipboardShelfView: View {
     @State private var selectedFilter: ClipboardFilter = .all
     @State private var selectedItemID: ClipboardItem.ID?
     @State private var selectionScrollRequest = 0
+    @State private var isAddSheetPresented = false
     @FocusState private var isSearchFocused: Bool
 
     private var visibleItems: [ClipboardItem] {
@@ -106,6 +107,11 @@ struct ClipboardShelfView: View {
                 .stroke(.white.opacity(style == .floating ? 0.38 : 0.30), lineWidth: 1)
         )
         .shadow(color: .black.opacity(style == .floating ? 0.28 : 0.22), radius: 32, x: 0, y: 20)
+        .sheet(isPresented: $isAddSheetPresented) {
+            AddItemSheet(isPresented: $isAddSheetPresented) { content in
+                store.addManualItem(content: content)
+            }
+        }
     }
 
     private func header(visibleCount: Int, pinnedCount: Int) -> some View {
@@ -124,6 +130,15 @@ struct ClipboardShelfView: View {
                 pasteSelectedItem()
             }
                 .frame(width: style == .floating ? 240 : 340)
+
+            Button {
+                isAddSheetPresented = true
+            } label: {
+                Label("添加", systemImage: "square.and.pencil")
+                    .labelStyle(.titleAndIcon)
+            }
+            .buttonStyle(PillButtonStyle(tint: Color(red: 0.90, green: 0.50, blue: 0.10)))
+            .help("手动添加固定内容，永久保留")
 
             Button {
                 store.captureCurrentClipboard()
@@ -254,6 +269,8 @@ struct ClipboardShelfView: View {
 
     private func resetSelectionToFirst() {
         releaseKeyboardFocus()
+        searchText = ""
+        selectedFilter = .all
         updateSelection(visibleItems.first?.id, scrollIfUnchanged: true)
     }
 
@@ -388,13 +405,15 @@ private struct SearchField: View {
 }
 
 private struct PillButtonStyle: ButtonStyle {
+    var tint: Color = Color(red: 0.04, green: 0.50, blue: 0.95)
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.caption.weight(.bold))
             .padding(.horizontal, 11)
             .padding(.vertical, 7)
             .foregroundStyle(.white)
-            .background(Color(red: 0.04, green: 0.50, blue: 0.95).opacity(configuration.isPressed ? 0.72 : 1), in: Capsule())
+            .background(tint.opacity(configuration.isPressed ? 0.72 : 1), in: Capsule())
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
     }
 }
@@ -444,5 +463,85 @@ private struct EmptyShelfView: View {
             return "这个分类暂时为空。复制对应类型内容后，它会自动出现在 Shelf。"
         }
         return "复制文字、链接、图片或 Finder 文件后，Cut Paste 会自动保存历史；你也可以手动读取当前剪贴板。"
+    }
+}
+
+private struct AddItemSheet: View {
+    @Binding var isPresented: Bool
+    let onAdd: (String) -> Void
+
+    @State private var content = ""
+    @FocusState private var isFocused: Bool
+
+    private var trimmedContent: String {
+        content.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 10) {
+                Image(systemName: "pin.fill")
+                    .font(.title2)
+                    .foregroundStyle(Color(red: 0.90, green: 0.50, blue: 0.10))
+                Text("添加固定内容")
+                    .font(.title2.weight(.bold))
+            }
+
+            Text("输入需要永久保留的内容。保存后将固定在 Shelf 顶部，除非主动删除，否则不会被自动清理。支持纯文本、链接和颜色值（如 #FF8800）。")
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            ZStack(alignment: .topLeading) {
+                if content.isEmpty {
+                    Text("在此输入内容…")
+                        .foregroundStyle(.tertiary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 12)
+                        .allowsHitTesting(false)
+                }
+                TextEditor(text: $content)
+                    .font(.body)
+                    .focused($isFocused)
+                    .scrollContentBackground(.hidden)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(.regularMaterial)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(.white.opacity(0.22), lineWidth: 1)
+            )
+            .frame(minHeight: 150)
+
+            HStack(spacing: 12) {
+                Spacer()
+                Button("取消") {
+                    isPresented = false
+                }
+                .keyboardShortcut(.cancelAction)
+
+                Button {
+                    onAdd(content)
+                    content = ""
+                    isPresented = false
+                } label: {
+                    Label("添加并固定", systemImage: "pin.fill")
+                }
+                .buttonStyle(.borderedProminent)
+                .keyboardShortcut(.defaultAction)
+                .disabled(trimmedContent.isEmpty)
+            }
+        }
+        .padding(24)
+        .frame(width: 460)
+        .onAppear {
+            DispatchQueue.main.async {
+                isFocused = true
+            }
+        }
     }
 }

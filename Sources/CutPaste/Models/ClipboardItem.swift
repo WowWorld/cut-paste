@@ -16,6 +16,7 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
     var imagePixelSize: PixelSize?
     var filePaths: [String]
     var colorHex: String?
+    var isManual: Bool
 
     init(
         id: UUID = UUID(),
@@ -32,7 +33,8 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
         imageFileName: String? = nil,
         imagePixelSize: PixelSize? = nil,
         filePaths: [String] = [],
-        colorHex: String? = nil
+        colorHex: String? = nil,
+        isManual: Bool = false
     ) {
         self.id = id
         self.kind = kind
@@ -49,6 +51,7 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
         self.imagePixelSize = imagePixelSize
         self.filePaths = filePaths
         self.colorHex = colorHex
+        self.isManual = isManual
     }
 
     enum CodingKeys: String, CodingKey {
@@ -67,6 +70,7 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
         case imagePixelSize
         case filePaths
         case colorHex
+        case isManual
     }
 
     init(from decoder: Decoder) throws {
@@ -86,6 +90,7 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
         imagePixelSize = try container.decodeIfPresent(PixelSize.self, forKey: .imagePixelSize)
         filePaths = try container.decode([String].self, forKey: .filePaths)
         colorHex = try container.decodeIfPresent(String.self, forKey: .colorHex)
+        isManual = try container.decodeIfPresent(Bool.self, forKey: .isManual) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
@@ -104,6 +109,7 @@ struct ClipboardItem: Identifiable, Codable, Hashable, Sendable {
         try container.encodeIfPresent(imagePixelSize, forKey: .imagePixelSize)
         try container.encode(filePaths, forKey: .filePaths)
         try container.encodeIfPresent(colorHex, forKey: .colorHex)
+        try container.encode(isManual, forKey: .isManual)
     }
 }
 
