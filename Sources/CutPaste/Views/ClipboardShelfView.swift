@@ -39,17 +39,17 @@ struct ClipboardShelfView: View {
 
     var body: some View {
         let currentVisibleItems = visibleItems
-        let currentVisibleItemIDs = currentVisibleItems.map(\.id)
         let currentSelectedItem = selectedItem(in: currentVisibleItems)
         let currentQuickPasteItems = Array(currentVisibleItems.prefix(9))
+        let currentVisibleCount = currentVisibleItems.count
 
         VStack(spacing: style == .floating ? 6 : 12) {
             shelfBody(visibleItems: currentVisibleItems, selectedItem: currentSelectedItem)
         }
         .onAppear {
-            validateSelection()
+            validateSelection(using: currentVisibleItems)
         }
-        .onChange(of: currentVisibleItemIDs) { _, _ in validateSelection() }
+        .onChange(of: currentVisibleCount) { _, _ in validateSelection(using: visibleItems) }
         .onReceive(selectionResetPublisher) { _ in
             resetSelectionToFirst()
         }
@@ -72,7 +72,7 @@ struct ClipboardShelfView: View {
 
     private func shelfBody(visibleItems: [ClipboardItem], selectedItem: ClipboardItem?) -> some View {
         VStack(alignment: .leading, spacing: style == .floating ? 8 : 16) {
-            header(visibleCount: visibleItems.count, pinnedCount: store.items.filter(\.isPinned).count)
+            header(visibleCount: visibleItems.count, pinnedCount: store.pinnedCount)
             filterBar
 
             if visibleItems.isEmpty {
@@ -248,16 +248,16 @@ struct ClipboardShelfView: View {
         }
     }
 
-    private func validateSelection() {
-        guard !visibleItems.isEmpty else {
+    private func validateSelection(using items: [ClipboardItem]) {
+        guard !items.isEmpty else {
             updateSelection(nil, scrollIfUnchanged: false)
             return
         }
-        if let selectedItemID, visibleItems.contains(where: { $0.id == selectedItemID }) {
+        if let selectedItemID, items.contains(where: { $0.id == selectedItemID }) {
             requestSelectedCardScroll()
             return
         }
-        updateSelection(visibleItems.first?.id, scrollIfUnchanged: false)
+        updateSelection(items.first?.id, scrollIfUnchanged: false)
     }
 
     private func selectedItem(in visibleItems: [ClipboardItem]) -> ClipboardItem? {

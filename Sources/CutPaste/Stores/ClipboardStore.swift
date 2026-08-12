@@ -15,6 +15,7 @@ final class ClipboardStore: ObservableObject {
     @Published var isHotKeyRegistered = false
     @Published var hotKeyStatusMessage = "Not registered"
     @Published private(set) var isMonitoringEnabled: Bool
+    @Published private(set) var pinnedCount: Int = 0
 
     private let pasteboard: NSPasteboard
     private var lastPasteboardChangeCount: Int
@@ -22,6 +23,7 @@ final class ClipboardStore: ObservableObject {
     private let maxHistoryItems = 100
     private let saveQueue = DispatchQueue(label: "io.github.wowworld.cutpaste.persistence", qos: .utility)
     private var pendingSaveWorkItem: DispatchWorkItem?
+    private var writtenImageFileNames: Set<String> = []
 
     init(pasteboard: NSPasteboard = .general) {
         UserDefaults.standard.register(defaults: [
@@ -436,6 +438,7 @@ final class ClipboardStore: ObservableObject {
             }
             return left.createdAt > right.createdAt
         }
+        pinnedCount = items.reduce(0) { $0 + ($1.isPinned ? 1 : 0) }
     }
 
     private func enforceHistoryLimit() {
@@ -547,6 +550,10 @@ final class ClipboardStore: ObservableObject {
                     if item.imageData == nil, let imageFileName = item.imageFileName {
                         item.imageData = try? Data(contentsOf: loadedImagesDirectoryURL.appendingPathComponent(imageFileName))
                     }
+                    // 记录已存在于磁盘上的图片文件，save() 时跳过重写
+                    if let imageFileName = item.imageFileName {
+                        writtenImageFileNames.insert(imageFileName)
+                    }
                 }
                 return item
             }
@@ -561,13 +568,28 @@ final class ClipboardStore: ObservableObject {
             items[index].imageFileName = imageFileName(for: items[index].id)
         }
 
+        // 只提取需要写入磁盘的图片（新图片或有变化的图片），避免每次全量写入
+        let imagesToWrite: [(fileName: String, data: Data)] = items.compactMap { item in
+            guard item.kind == .image,
+                  let fileName = item.imageFileName,
+                  let imageData = item.imageData,
+                  !writtenImageFileNames.contains(fileName) else {
+                return nil
+            }
+            return (fileName, imageData)
+        }
+        for img in imagesToWrite {
+            writtenImageFileNames.insert(img.fileName)
+        }
+
+        // snapshot 只编码元数据（encode 方法已排除 imageData），不含大块二进制数据
         let snapshot = items
         let storageURL = storageURL
         let imagesDirectoryURL = imagesDirectoryURL
 
         pendingSaveWorkItem?.cancel()
         let workItem = DispatchWorkItem {
-            Self.write(snapshot: snapshot, storageURL: storageURL, imagesDirectoryURL: imagesDirectoryURL)
+            Self.write(snapshot: snapshot, imagesToWrite: imagesToWrite, storageURL: storageURL, imagesDirectoryURL: imagesDirectoryURL)
         }
         pendingSaveWorkItem = workItem
 
@@ -575,16 +597,22 @@ final class ClipboardStore: ObservableObject {
         saveQueue.asyncAfter(deadline: .now() + delay, execute: workItem)
     }
 
-    private nonisolated static func write(snapshot: [ClipboardItem], storageURL: URL, imagesDirectoryURL: URL) {
+    private nonisolated static func write(
+        snapshot: [ClipboardItem],
+        imagesToWrite: [(fileName: String, data: Data)],
+        storageURL: URL,
+        imagesDirectoryURL: URL
+    ) {
         do {
             try FileManager.default.createDirectory(at: storageURL.deletingLastPathComponent(), withIntermediateDirectories: true)
             try FileManager.default.createDirectory(at: imagesDirectoryURL, withIntermediateDirectories: true)
 
-            for item in snapshot where item.kind == .image {
-                guard let imageFileName = item.imageFileName, let imageData = item.imageData else { continue }
-                try imageData.write(to: imagesDirectoryURL.appendingPathComponent(imageFileName), options: [.atomic])
+            // 只写入新增/变化的图片，不再全量重写
+            for (fileName, data) in imagesToWrite {
+                try data.write(to: imagesDirectoryURL.appendingPathComponent(fileName), options: [.atomic])
             }
 
+            // 清理孤儿图片文件
             let activeImageFileNames = Set(snapshot.compactMap(\.imageFileName))
             let existingImageURLs = (try? FileManager.default.contentsOfDirectory(at: imagesDirectoryURL, includingPropertiesForKeys: nil)) ?? []
             for imageURL in existingImageURLs where !activeImageFileNames.contains(imageURL.lastPathComponent) {

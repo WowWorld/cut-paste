@@ -6,7 +6,6 @@ struct ClipboardCardView: View {
     let isSelected: Bool
     var shortcutIndex: Int?
 
-    @State private var isHovered = false
     @State private var previewImage: NSImage?
     @State private var previewImageFingerprint: String?
 
@@ -37,16 +36,15 @@ struct ClipboardCardView: View {
                 pinnedRibbon
             }
         }
+        // 只对选中卡片施加阴影，非选中卡片用细边框替代，大幅减少 GPU 离屏渲染
         .shadow(
-            color: .black.opacity(isSelected ? 0.24 : (isHovered ? 0.16 : 0.11)),
-            radius: isSelected ? 18 : (isHovered ? 11 : 7),
+            color: .black.opacity(isSelected ? 0.22 : 0.08),
+            radius: isSelected ? 14 : 4,
             x: 0,
-            y: isSelected ? 11 : (isHovered ? 7 : 4)
+            y: isSelected ? 8 : 2
         )
-        .scaleEffect(isSelected ? 1.018 : (isHovered ? 1.01 : 1))
-        .animation(.spring(response: 0.28, dampingFraction: 0.82), value: isSelected)
-        .animation(.spring(response: 0.22, dampingFraction: 0.88), value: isHovered)
-        .onHover { isHovered = $0 }
+        .scaleEffect(isSelected ? 1.018 : 1)
+        .animation(.easeOut(duration: 0.15), value: isSelected)
         .onAppear {
             loadPreviewImageIfNeeded()
         }
@@ -62,33 +60,25 @@ struct ClipboardCardView: View {
     }
 
     private var cardBackground: some View {
-        ZStack {
-            cardShape
-                .fill(.regularMaterial)
-
-            cardShape
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            item.kind.accentColor.opacity(isSelected ? 0.30 : 0.18),
-                            Color.primary.opacity(0.035),
-                            Color(nsColor: .textBackgroundColor).opacity(0.74)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
+        // 用简单色替代 .regularMaterial，减少 GPU 合成开销
+        cardShape
+            .fill(
+                LinearGradient(
+                    colors: [
+                        item.kind.accentColor.opacity(isSelected ? 0.22 : 0.12),
+                        Color(nsColor: .textBackgroundColor).opacity(0.92)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
             )
-
-            cardShape
-                .stroke(.white.opacity(0.16), lineWidth: 1)
-        }
     }
 
     private var borderStyle: LinearGradient {
         LinearGradient(
             colors: isSelected
                 ? [.white.opacity(0.96), item.kind.accentColor.opacity(0.72), .white.opacity(0.42)]
-                : [.white.opacity(isHovered ? 0.52 : 0.30), .white.opacity(0.12)],
+                : [.white.opacity(0.30), .white.opacity(0.12)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
@@ -347,7 +337,6 @@ struct ClipboardCardView: View {
             .frame(width: 24, height: 24)
             .background(item.kind.accentColor, in: Circle())
             .overlay(Circle().stroke(.white.opacity(0.44), lineWidth: 1))
-            .shadow(color: .black.opacity(0.20), radius: 6, y: 3)
             .padding(8)
     }
 
